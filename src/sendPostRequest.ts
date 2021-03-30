@@ -7,6 +7,7 @@
  * @param {Function}  [options.onUploadProgress]  Accepts one ProgressEvent argument
  * @return {Promise<String>} Resolves to the response text
  */
+
 export interface PostParams {
   signature: string;
   api_key: string;
@@ -14,7 +15,7 @@ export interface PostParams {
   upload_preset?: string;
   folder?: string;
   tags?: string;
-  context: string;
+  context?: string;
   timestamp: number;
   source: string;
 }

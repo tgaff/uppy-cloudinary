@@ -5,9 +5,9 @@ export interface SignatureParams {
   upload_preset?: string;
   folder?: string;
   tags?: string;
-  userId?: string;
   timestamp: number;
   source: string;
+  api_key: string;
 }
 
 export interface ClientProps extends Uppy.PluginOptions {
@@ -17,7 +17,9 @@ export interface ClientProps extends Uppy.PluginOptions {
   userId?: string;
   cloudName: string;
   apiKey: string;
-  generateSignature: (params: SignatureParams) => Promise<string>;
+  generateSignature: (
+    params: Partial<SignatureParams>
+  ) => Promise<{ signature: string; params: SignatureParams }>;
 }
 
 const baseUrl = 'https://api.cloudinary.com/v1_1';
@@ -55,10 +57,13 @@ function getUploadUrl(cloudName: string, file: File | Blob) {
 export default class CloudinaryApiClient {
   cloudName: string;
   uploadPreset: string | undefined;
-  apiKey: string;
-  folder: string | undefined;
-  tags: string | undefined;
-  generateSignature: (params: SignatureParams) => Promise<string>;
+  apiKey?: string;
+  folder?: string | undefined;
+  tags?: string | undefined;
+  timestamp?: number | undefined;
+  generateSignature: (
+    params: Partial<SignatureParams>
+  ) => Promise<{ signature: string; params: SignatureParams }>;
   userId: string | undefined;
 
   constructor({
@@ -83,28 +88,27 @@ export default class CloudinaryApiClient {
     file: File | Blob,
     { onUploadProgress }: { onUploadProgress: (event: ProgressEvent) => void }
   ): Promise<object> {
-    const params: SignatureParams = {
-      folder: this.folder || '',
-      upload_preset: this.uploadPreset || '',
-      tags: this.tags || '',
-      source: 'uppy',
-      userId: this.userId || '',
-      timestamp: new Date().getTime(),
+    const params: Partial<SignatureParams> = {
+      folder: this.folder || undefined,
+      upload_preset: this.uploadPreset || undefined,
+      tags: this.tags || undefined,
+      timestamp: this.timestamp || new Date().getTime(),
     };
 
-    const signature = await this.generateSignature(params);
+    const { signature, params: generatedParams } = await this.generateSignature(
+      params
+    );
 
     if (!signature) {
       throw new Error('Could not generate signature');
     }
-    const { userId, ...rest } = params;
+    const { ...rest } = params;
 
     const postParams: PostParams = {
       ...rest,
+      ...generatedParams,
       signature,
-      api_key: this.apiKey,
       file,
-      context: this.userId ? `userId=${userId}` : '',
     };
 
     const responseText = await sendPostRequest(
