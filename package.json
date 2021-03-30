@@ -1,8 +1,8 @@
 {
-  "name": "@zifahm/uppy-cloudinary",
+  "name": "@tgaff/uppy-cloudinary",
   "description": "Uppy plugin for Cloudinary",
-  "version": "0.1.7",
-  "repository": "zifahm/uppy-cloudinary",
+  "version": "1.0.0",
+  "repository": "tgaff/uppy-cloudinary",
   "main": "dist/CloudinaryPlugin",
   "typings": "dist/CloudinaryPlugin.d.ts",
   "files": [
@@ -37,7 +37,6 @@
     "uppy cloudinary",
     "cloudinary",
     "uppy",
-    "uppy react cloudinary",
     "cloudinary generate signature uppy"
   ]
 }
