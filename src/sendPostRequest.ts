@@ -39,7 +39,10 @@ export const sendPostRequest = (
 
     Object.keys(params).forEach(key => {
       // @ts-ignore
-      fd.append(key, params[key]);
+      if (params[key] !== undefined) {
+        // @ts-ignore
+        fd.append(key, params[key]);
+      }
     });
 
     xhr.open('POST', url, true);
