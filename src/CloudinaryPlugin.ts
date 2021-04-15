@@ -1,5 +1,12 @@
 import * as Uppy from '@uppy/core';
-import CloudinaryApiClient, { ClientProps } from './CloudinaryApiClient';
+import CloudinaryApiClient, {
+  ClientProps,
+  SignatureParams,
+} from './CloudinaryApiClient';
+export { SignatureParams, ClientProps };
+
+// import * as utils from "./CloudinaryApiClient";
+// export { utils };
 
 export default class CloudinaryPlugin extends Uppy.Plugin {
   apiClient: CloudinaryApiClient;
