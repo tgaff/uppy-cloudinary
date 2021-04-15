@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm ./dist/* && tsc"
+    "build": "rm -f ./dist/* && tsc"
   },
   "peerDependencies": {
     "@uppy/core": "^1.2.0"
