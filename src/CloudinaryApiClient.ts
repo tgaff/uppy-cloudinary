@@ -18,7 +18,8 @@ export interface ClientProps extends Uppy.PluginOptions {
   cloudName: string;
   apiKey: string;
   generateSignature: (
-    params: Partial<SignatureParams>
+    params: Partial<SignatureParams>,
+    file: File | Blob
   ) => Promise<{ signature: string; params: SignatureParams }>;
 }
 
@@ -62,7 +63,8 @@ export default class CloudinaryApiClient {
   tags?: string | undefined;
   timestamp?: number | undefined;
   generateSignature: (
-    params: Partial<SignatureParams>
+    params: Partial<SignatureParams>,
+    file: File | Blob
   ) => Promise<{ signature: string; params: SignatureParams }>;
   userId: string | undefined;
 
@@ -96,7 +98,8 @@ export default class CloudinaryApiClient {
     };
 
     const { signature, params: generatedParams } = await this.generateSignature(
-      params
+      params,
+      file
     );
 
     if (!signature) {

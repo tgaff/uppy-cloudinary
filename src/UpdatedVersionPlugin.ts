@@ -28,7 +28,10 @@ export interface ClientProps extends Uppy.PluginOptions {
   userId?: string;
   cloudName: string;
   apiKey: string;
-  generateSignature: (params: SignatureParams) => Promise<string>;
+  generateSignature: (
+    params: SignatureParams,
+    file: File | Blob
+  ) => Promise<string>;
 }
 
 function settle(promises: any) {
@@ -79,7 +82,7 @@ export default class CloudinaryPlugin extends Uppy.Plugin {
     userId?: string | undefined;
     cloudName: string;
     apiKey: string;
-    generateSignature: (params: SignatureParams) => any;
+    generateSignature: (params: SignatureParams, file: File | Blob) => any;
     id?: string | undefined;
   };
 
@@ -175,7 +178,7 @@ export default class CloudinaryPlugin extends Uppy.Plugin {
         timestamp: new Date().getTime(),
       };
 
-      const signature = await this.opts.generateSignature(params);
+      const signature = await this.opts.generateSignature(params, file);
 
       if (!signature) {
         throw new Error('Could not generate signature');
