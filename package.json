@@ -1,7 +1,7 @@
 {
   "name": "@tgaff/uppy-cloudinary",
   "description": "Uppy plugin for Cloudinary",
-  "version": "1.0.1",
+  "version": "1.1.0-beta1",
   "repository": "tgaff/uppy-cloudinary",
   "main": "dist/CloudinaryPlugin",
   "typings": "dist/CloudinaryPlugin.d.ts",
