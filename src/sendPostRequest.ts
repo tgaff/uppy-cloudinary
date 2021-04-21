@@ -17,7 +17,7 @@ export interface PostParams {
   tags?: string;
   context?: string;
   timestamp: number;
-  source: string;
+  source?: string;
 }
 
 export const sendPostRequest = (

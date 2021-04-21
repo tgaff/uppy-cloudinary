@@ -1,3 +1,5 @@
+/* This file added in zifahm's fork, but not used */
+
 import * as Uppy from '@uppy/core';
 
 export interface PostParams {

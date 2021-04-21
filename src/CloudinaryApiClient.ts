@@ -6,7 +6,7 @@ export interface SignatureParams {
   folder?: string;
   tags?: string;
   timestamp: number;
-  source: string;
+  source?: string;
   api_key: string;
 }
 
